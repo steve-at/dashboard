@@ -1,1 +1,16 @@
-/* You can add global styles to this file, and also import other style files */
+#chart {
+  height: inherit;
+  width: inherit;
+}
+.bar {
+  fill: steelblue;
+}
+
+.bar:hover {
+  fill: brown;
+}
+
+.axis--x path {
+  display: none;
+}
+
