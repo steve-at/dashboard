@@ -1,8 +1,7 @@
-import { Component } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {DataModel} from './model/data-model';
+import {Component} from '@angular/core';
 import {Observable} from 'rxjs';
 import {FeatureCollection} from '@turf/helpers';
+import {DataService} from './services/data.service';
 
 
 @Component({
@@ -11,13 +10,11 @@ import {FeatureCollection} from '@turf/helpers';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  data: Observable<DataModel>;
-  geometryData: Observable<FeatureCollection>;
-  crashData: Observable<FeatureCollection>;
+  geometryData: FeatureCollection;
+  crashData: FeatureCollection;
 
-  constructor(private http: HttpClient) {
-    this.data = this.http.get<DataModel>('../assets/data.json');
-    this.geometryData = this.http.get<FeatureCollection>('../assets/north-carolina-counties.json');
-    this.crashData = this.http.get<FeatureCollection>('../assets/BikePedCrash.json');
+  constructor(private dataService: DataService) {
+    dataService.crashDataAsObservable.subscribe(data => this.crashData = data);
+    dataService.geometryDataAsObservable.subscribe(data => this.geometryData = data);
   }
 }
