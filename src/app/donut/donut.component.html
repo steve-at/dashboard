@@ -1,0 +1,9 @@
+<div id="donut" #donut></div>
+<mat-form-field>
+  <mat-label>Donut Data</mat-label>
+  <mat-select [(ngModel)]="dataKey" (ngModelChange)="dataChanged($event)">
+    <mat-option *ngFor="let attrib of attributes" [value]="attrib">
+      {{attrib}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

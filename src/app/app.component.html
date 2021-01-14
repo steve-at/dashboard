@@ -1,1 +1,36 @@
-<app-map-chart></app-map-chart>
+<div class="grid-container">
+  <div class="header"><h1>Bike vs car - North Carolina</h1></div>
+  <mat-card class="filter">
+    <div class="ov-text">active FILTERS</div>
+      <ul>
+        <li *ngFor="let item of activeFilter | keyvalue">
+          <button  mat-raised-button color="primary" (click)="removeFilterKategory(item.key)">{{item.key}} </button>
+          <mat-chip-list *ngFor="let value of item.value">
+            <mat-chip color="accent" (click)="removeFilter(item.key, value)">{{value}}</mat-chip>
+          </mat-chip-list>
+        </li>
+      </ul>
+  </mat-card>
+  <mat-card class="numbers" >
+    <div class="ov-text">TOTAL</div>
+    <div class="total-value">{{overview.total}}</div>
+    <div class="ov-text">FROM:</div>
+    <div class="date-value">{{overview.from | date:'MMM YYYY'}}</div>
+    <div class="ov-text">TO:</div>
+    <div class="date-value">{{overview.to | date:'MMM YYYY'}}</div>
+  </mat-card>
+  <mat-card class="map">
+    <app-map-chart></app-map-chart>
+  </mat-card>
+  <mat-card class="time">
+    <app-stacked-area-chart></app-stacked-area-chart>
+  </mat-card>
+  <mat-card class="parallel">
+    <app-parallel></app-parallel>
+  </mat-card>
+  <mat-card class="donut">
+    <app-donut></app-donut>
+  </mat-card>
+</div>
+<div [ngClass]="{'loading': loading, 'loaded' : loading === false}">loading...</div>
+
