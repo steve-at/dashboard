@@ -34,13 +34,14 @@ export class DataService {
   private currentBbox: BBox;
   private bounds: Feature<Polygon, Properties>;
   private attributeFilterMap: Map<any, any[]>;
-  private currentDonutKey: string;
+  currentDonutKey: string;
 
   constructor(private http: HttpClient) {
     this.attributeFilterMap = new Map();
     this.currentDonutKey = 'BikeInjury';
     this.http.get<FeatureCollection>('../assets/north-carolina-counties.json').subscribe(gData => {
       this.baseGeometryData = gData;
+      console.log(this.baseGeometryData);
       this.currentBbox = bbox(this.baseGeometryData);
       this.http.get<FeatureCollection>('../assets/BikePedCrash.json').subscribe(cData => {
         this.baseCrashData = featureCollection(cData.features.filter(feature => feature.properties.CrashYear >= 2010));

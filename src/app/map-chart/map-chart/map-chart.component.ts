@@ -39,6 +39,7 @@ export class MapChartComponent implements OnInit {
         console.log('chart created');
         // @ts-ignore
         this.geometries = this.dataService.geometryData.getValue();
+        console.log(bbox(this.geometries));
         // @ts-ignore
         this.crashData = this.dataService.crashData.getValue();
         this.createChart();
@@ -70,7 +71,7 @@ export class MapChartComponent implements OnInit {
     this.projection = d3.geoMercator().fitSize([this.width, this.height], this.geometries);
     this.path = d3.geoPath(this.projection);
     this.g = this.svg.append('g');
-
+    console.log(this.geometries.features);
     this.brush = d3.brush()
       .extent([[0, 0], [this.width, this.height]])
       .on('end', this.brushEnd.bind(this));
@@ -146,19 +147,10 @@ export class MapChartComponent implements OnInit {
   private brushEnd(event): void {
     if (event.selection) {
       const [[x0, y0], [x1, y1]] = event.selection;
-      // this.svg.transition().duration(500).call(
-      //   this.zoom.transform,
-      //   d3.zoomIdentity
-      //     .translate(this.width / 3, this.height / 10)
-      //     .scale(Math.min(8, 0.9 / Math.max((x1 - x0) / this.width, (y1 - y0) / this.height)))
-      //     .translate(-(x0 + x1) / 2, -(y0 + y1) / 2),
-      //   d3.pointer(event, this.svg.node())
-      // );
       this.brush.clear(this.br);
       const p0 = this.projection.invert([x0, y0]);
       const p1 = this.projection.invert([x1, y1]);
       this.dataService.setBbox(bbox(lineString([p0, p1])));
-      // this.dataService.updateBbox();
       this.dataService.updateCharts();
       this.working = false;
 

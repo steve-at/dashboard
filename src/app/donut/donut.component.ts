@@ -30,7 +30,7 @@ export class DonutComponent implements OnInit {
   height = 450;
   radius: number;
   attributes: string[];
-  dataKey: string;
+  public dataKey: string;
   private data: [any, any][];
   private processedData: { key: any; value: number }[];
   private colors: string[];
@@ -52,6 +52,7 @@ export class DonutComponent implements OnInit {
 
   dataChanged($event: any): void {
     this.data = this.dataService.setupDonutMap(this.dataKey);
+    this.dataService.currentDonutKey = this.dataKey;
     this.processedData = this.toKeyValue(this.data);
     this.createChart();
   }

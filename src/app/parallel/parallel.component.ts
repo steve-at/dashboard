@@ -276,7 +276,6 @@ export class ParallelComponent implements OnInit {
         .attr('stroke-linejoin', 'round')
         .attr('stroke', 'white')
       );
-
     const brushes = axes.append('g').call(
       brushY()
         .extent([[-10, 0], [10, this.dimensions.height - this.dimensions.margin.bottom]])
