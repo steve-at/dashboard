@@ -1,5 +1,6 @@
 # D3 Dashboard
 
+**Achtung, die Datenquelle ist 26 + 13MB groß. Daher kann es beim verwenden der Version auf http://dashboard-git-main.steve-at.vercel.app/ bei einer langsamen Internetverbindungen beim initialen Laden zu einem Timeout kommen.**
 
 ![](src/assets/no%20selection.png)
 
